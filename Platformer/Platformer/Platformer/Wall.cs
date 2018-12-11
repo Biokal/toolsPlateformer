@@ -43,5 +43,10 @@ namespace Platformer
             return false;
         }
 
+        public void Draw(SpriteBatch sb)
+        {
+            sb.Draw(m_texture, m_position, Color.White);
+        }
+
     }
 }
