@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +11,15 @@ namespace Platformer
 {
     class Player
     {
+
         Texture2D m_texture;
         Vector2 m_position;
+        Vector2 m_origin = new Vector2(32,32);
         Vector2 m_widthHeight;
+        Vector2 m_previousPosition;
+        Vector2 m_vitesse = new Vector2(0,0);
+        float m_rotation = 0f;
+        float m_rotationSpeed = 250f;
 
         Rectangle m_collisionBox = new Rectangle(0, 0, 0, 0);
 
@@ -47,12 +54,59 @@ namespace Platformer
 
         public void Update(GameTime gameTime)
         {
+            //m_previousPosition pour recaler si jamais il y a collision
+            m_previousPosition = m_position;
+
+            //Application gravité sur la position Y
+            if (m_vitesse.Y < 750f)
+            {
+                //m_vitesse.Y += 350f * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            }
+            //m_position += m_vitesse* (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            if(Keyboard.GetState().IsKeyDown(Keys.D) || Keyboard.GetState().IsKeyDown(Keys.Right))
+            {
+                m_rotation += m_rotationSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                if(m_rotation >90)
+                {
+                    m_rotation = 0;
+                    m_position.X += 32;
+                }
+            }
+            else
+            {
+                if(m_rotation>=45)
+                {
+                    if (m_rotation < 90)
+                    {
+                        m_rotation += m_rotationSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                    }
+                    else
+                    {
+                        m_rotation = 0;
+                        m_position.X += 32;
+                    }
+                }
+                else if(m_rotation<=45)
+                {
+                    if (m_rotation > 0)
+                    {
+                        m_rotation -= m_rotationSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                    }
+                    else
+                    {
+                        m_rotation = 0;
+                        m_position.X += 32;
+                    }
+                }
+            }
+            
 
         }
 
         public void Draw(SpriteBatch sb)
         {
-            sb.Draw(m_texture, m_position, Color.White);
+            sb.Draw(m_texture, m_position, m_texture.Bounds,  Color.White, MathHelper.ToRadians(m_rotation), m_origin, 1f, SpriteEffects.None, 0);
         }
     }
 

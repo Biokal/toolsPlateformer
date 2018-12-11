@@ -49,6 +49,10 @@ namespace Platformer
 
             // TODO: Add your update logic here
 
+            player.Update(gameTime);
+
+
+
             base.Update(gameTime);
         }
 
