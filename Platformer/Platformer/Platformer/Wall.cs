@@ -11,6 +11,7 @@ namespace Platformer
 {
     class Wall
     {
+        public bool Used = false;
 
         Texture2D m_texture;
         Vector2 m_position;
@@ -28,7 +29,7 @@ namespace Platformer
             return m_collisionBox;
         }
 
-        public Wall(Vector2 _position, int _Width = 32, int _Height = 32)
+        public Wall(Vector2 _position, bool used = true, int _Width = 32, int _Height = 32)
         {
             m_size = new Vector2(_Width, _Height);
             m_position = _position;
