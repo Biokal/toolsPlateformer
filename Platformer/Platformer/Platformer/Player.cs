@@ -10,7 +10,6 @@ namespace Platformer
 {
     class Player
     {
-
         Texture2D m_texture;
         Vector2 m_position;
         Vector2 m_widthHeight;
@@ -43,16 +42,18 @@ namespace Platformer
             m_texture.SetData(data);
             m_widthHeight = new Vector2(_Width, _Height);
             this.m_position = _position;
+        }
+        
+
+        public void Update(GameTime gameTime)
+        {
 
         }
 
-
-
-
-
-
-
-
+        public void Draw(SpriteBatch sb)
+        {
+            sb.Draw(m_texture, m_position, Color.White);
+        }
     }
 
     

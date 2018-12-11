@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
 
 namespace Platformer
 {
@@ -11,6 +12,7 @@ namespace Platformer
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        Player player;
 
         public Game1()
         {
@@ -30,6 +32,8 @@ namespace Platformer
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+
+            player = new Player(GraphicsDevice, new Vector2(32, 32), 32, 32, Color.Red);
             // TODO: use this.Content to load your game content here
         }
 
@@ -53,6 +57,10 @@ namespace Platformer
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
+            spriteBatch.Begin();
+            player.Draw(spriteBatch);
+            spriteBatch.End();
+
 
             base.Draw(gameTime);
         }
