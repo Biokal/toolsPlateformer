@@ -18,6 +18,8 @@ namespace Platformer
 
         Player player;
         Wall wall1;
+        Wall wall2;
+        Wall wall3;
 
         Camera playerCamera;
         //Liste des murs et des sols pour les collisions
@@ -47,7 +49,11 @@ namespace Platformer
 
             //Création de murs temporaires ofc
             wall1 = new Wall(new Vector2(0, 128));
+            wall2 = new Wall(new Vector2(32, 128));
+            wall3 = new Wall(new Vector2(32, 96));
             wallList.Add(wall1);
+            wallList.Add(wall2);
+            wallList.Add(wall3);
             // TODO: use this.Content to load your game content here
         }
 
@@ -78,6 +84,8 @@ namespace Platformer
             spriteBatch.Begin();
             player.Draw(spriteBatch,playerCamera);
             wall1.Draw(spriteBatch, playerCamera);
+            wall2.Draw(spriteBatch, playerCamera);
+            wall3.Draw(spriteBatch, playerCamera);
             spriteBatch.End();
 
 

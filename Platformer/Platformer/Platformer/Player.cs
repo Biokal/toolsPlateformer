@@ -24,6 +24,7 @@ namespace Platformer
         Vector2 m_offset;
 
         Rectangle m_collisionBox;
+        Rectangle m_forwardTrigger;
 
         public Rectangle getCollisionBox()
         {
@@ -33,6 +34,16 @@ namespace Platformer
             m_collisionBox.Height = (int)m_widthHeight.Y;
 
             return m_collisionBox;
+        }
+
+        public Rectangle getForwardTrigger()
+        {
+            m_forwardTrigger.X = (int)getCollisionBox().X + (int)m_widthHeight.X;
+            m_forwardTrigger.Y = (int)getCollisionBox().Y;
+            m_forwardTrigger.Width = (int)getCollisionBox().Width;
+            m_forwardTrigger.Height = (int)getCollisionBox().Height;
+
+            return m_forwardTrigger;
         }
 
         public Vector2 getPosition()
@@ -67,7 +78,8 @@ namespace Platformer
             m_widthHeight = new Vector2(_Width, _Height);
             this.m_position = _position;
         }
-        
+
+        bool colliding = false;
 
         public void Update(GameTime gameTime, List<Wall> _listWall)
         {
@@ -81,13 +93,30 @@ namespace Platformer
             }
             m_position += m_vitesse* (float)gameTime.ElapsedGameTime.TotalSeconds;
 
+
+            
+
+            //GoToRight + Rotation
             if(Keyboard.GetState().IsKeyDown(Keys.D) || Keyboard.GetState().IsKeyDown(Keys.Right))
             {
-                m_rotation += m_rotationSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
-                if(m_rotation >90)
+                colliding = false;
+                //ForwardTrigger Detection
+                foreach (Wall x in _listWall)
                 {
-                    m_rotation = 0;
-                    m_position.X += 32;
+                    if(x.isColliding(this.getForwardTrigger()))
+                    {
+                        colliding = true;
+                        break;
+                    }
+                }
+                if (!colliding)
+                {
+                    m_rotation += m_rotationSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                    if (m_rotation > 90)
+                    {
+                        m_rotation = 0;
+                        m_position.X += 32;
+                    }
                 }
             }
             else
@@ -117,14 +146,24 @@ namespace Platformer
                 }
             }
 
+            //Collisions
             foreach(Wall x in _listWall)
             {
                 if(x.isColliding(this.getCollisionBox()))
                 {
                     m_position = m_previousPosition;
+                    
                     m_vitesse.Y = 0;
+                    //Jump
+                    if (Keyboard.GetState().IsKeyDown(Keys.Z) || Keyboard.GetState().IsKeyDown(Keys.Up))
+                    {
+                        m_vitesse.Y = -350f;
+                    }
                 }
             }
+
+            
+
             
 
         }
