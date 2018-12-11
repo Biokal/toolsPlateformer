@@ -19,6 +19,7 @@ namespace Platformer
         Player player;
 
         Camera playerCamera;
+        Map map;
         //Liste des murs et des sols pour les collisions
 
 
@@ -38,7 +39,8 @@ namespace Platformer
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            map = new Map();
+            map.LoadMap();
 
             player = new Player(GraphicsDevice, new Vector2(32, 32), 32, 32, Color.Red);
             playerCamera = new Camera(GraphicsDevice.Viewport.Width,GraphicsDevice.Viewport.Height);
@@ -59,7 +61,7 @@ namespace Platformer
 
             // TODO: Add your update logic here
 
-            player.Update(gameTime,null);
+            player.Update(gameTime,map.GetWalls());
             playerCamera.setCameraPosition(player.getPosition() - player.getOrigin() + new Vector2(player.getRotation()/90*32,0));
 
 
@@ -73,6 +75,7 @@ namespace Platformer
             // TODO: Add your drawing code here
             spriteBatch.Begin();
             player.Draw(spriteBatch,playerCamera);
+            map.DrawMap(spriteBatch, playerCamera);
             spriteBatch.End();
 
 

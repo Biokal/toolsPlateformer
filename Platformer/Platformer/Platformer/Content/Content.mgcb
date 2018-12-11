@@ -13,6 +13,9 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin Map/Map1.csv
+/copy:Map/Map1.csv
+
 #begin Sprite/Wall.png
 /importer:TextureImporter
 /processor:TextureProcessor
