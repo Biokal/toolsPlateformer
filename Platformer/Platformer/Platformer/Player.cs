@@ -21,12 +21,14 @@ namespace Platformer
         float m_rotation = 0f;
         float m_rotationSpeed = 250f;
 
-        Rectangle m_collisionBox = new Rectangle(0, 0, 0, 0);
+
+
+        Rectangle m_collisionBox;
 
         public Rectangle getCollisionBox()
         {
-            m_collisionBox.X = (int)m_position.X;
-            m_collisionBox.Y = (int)m_position.Y;
+            m_collisionBox.X = (int)m_position.X - (int)m_widthHeight.X;
+            m_collisionBox.Y = (int)m_position.Y - (int)m_widthHeight.Y;
             m_collisionBox.Width = (int)m_widthHeight.X;
             m_collisionBox.Height = (int)m_widthHeight.Y;
 
@@ -52,7 +54,7 @@ namespace Platformer
         }
         
 
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, List<Wall> _listWall)
         {
             //m_previousPosition pour recaler si jamais il y a collision
             m_previousPosition = m_position;
@@ -97,6 +99,15 @@ namespace Platformer
                     {
                         m_rotation = 0;
                     }
+                }
+            }
+
+            foreach(Wall x in _listWall)
+            {
+                if(x.isColliding(this.getCollisionBox()))
+                {
+                    m_position = m_previousPosition;
+                    m_vitesse.Y = 0;
                 }
             }
             

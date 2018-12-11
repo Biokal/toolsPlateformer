@@ -17,6 +17,9 @@ namespace Platformer
         Wall wall1;
         SpritePack spritePack;
 
+        //Liste des murs et des sols pour les collisions
+        List<Wall> wallList = new List<Wall>();
+
 
         public Game1()
         {
@@ -37,7 +40,10 @@ namespace Platformer
 
 
             player = new Player(GraphicsDevice, new Vector2(32, 32), 32, 32, Color.Red);
-            wall1 = new Wall(new Vector2(32, 128));
+
+            //Création de murs temporaires ofc
+            wall1 = new Wall(new Vector2(0, 128));
+            wallList.Add(wall1);
             // TODO: use this.Content to load your game content here
         }
 
@@ -53,7 +59,7 @@ namespace Platformer
 
             // TODO: Add your update logic here
 
-            player.Update(gameTime);
+            player.Update(gameTime,wallList);
 
 
 
@@ -67,6 +73,7 @@ namespace Platformer
             // TODO: Add your drawing code here
             spriteBatch.Begin();
             player.Draw(spriteBatch);
+            wall1.Draw(spriteBatch);
             spriteBatch.End();
 
 
