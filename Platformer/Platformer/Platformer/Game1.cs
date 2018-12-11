@@ -14,6 +14,7 @@ namespace Platformer
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Player player;
+        Wall wall1;
         SpritePack spritePack;
 
 
@@ -36,6 +37,7 @@ namespace Platformer
 
 
             player = new Player(GraphicsDevice, new Vector2(32, 32), 32, 32, Color.Red);
+            wall1 = new Wall(new Vector2(32, 128));
             // TODO: use this.Content to load your game content here
         }
 

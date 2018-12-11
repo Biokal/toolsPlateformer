@@ -60,9 +60,9 @@ namespace Platformer
             //Application gravité sur la position Y
             if (m_vitesse.Y < 750f)
             {
-                //m_vitesse.Y += 350f * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                m_vitesse.Y += 350f * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
-            //m_position += m_vitesse* (float)gameTime.ElapsedGameTime.TotalSeconds;
+            m_position += m_vitesse* (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             if(Keyboard.GetState().IsKeyDown(Keys.D) || Keyboard.GetState().IsKeyDown(Keys.Right))
             {
@@ -96,7 +96,6 @@ namespace Platformer
                     else
                     {
                         m_rotation = 0;
-                        m_position.X += 32;
                     }
                 }
             }

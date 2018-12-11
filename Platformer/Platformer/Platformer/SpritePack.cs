@@ -33,9 +33,9 @@ namespace Platformer
 
         public Texture2D GetTexture(string Name)
         {
-            if(m_Textures[Name] == null)
+            if(m_Textures.ContainsKey(Name) == false)
             {
-                Texture2D newTexture = m_ContentManager.Load<Texture2D>(@"Sprite/"+ Name+".png");
+                Texture2D newTexture = m_ContentManager.Load<Texture2D>(@"Sprite\"+ Name);
                 m_Textures.Add(Name, newTexture);
             }
 
