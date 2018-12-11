@@ -13,10 +13,13 @@ namespace Platformer
 
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        Player player;
-        Wall wall1;
+
         SpritePack spritePack;
 
+        Player player;
+        Wall wall1;
+
+        Camera playerCamera;
         //Liste des murs et des sols pour les collisions
         List<Wall> wallList = new List<Wall>();
 
@@ -40,6 +43,7 @@ namespace Platformer
 
 
             player = new Player(GraphicsDevice, new Vector2(32, 32), 32, 32, Color.Red);
+            playerCamera = new Camera(GraphicsDevice.Viewport.Width,GraphicsDevice.Viewport.Height);
 
             //Création de murs temporaires ofc
             wall1 = new Wall(new Vector2(0, 128));
@@ -60,7 +64,7 @@ namespace Platformer
             // TODO: Add your update logic here
 
             player.Update(gameTime,wallList);
-
+            playerCamera.setCameraPosition(player.getPosition() - player.getOrigin() + new Vector2(player.getRotation()/90*32,0));
 
 
             base.Update(gameTime);
@@ -68,12 +72,12 @@ namespace Platformer
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.LightGray);
 
             // TODO: Add your drawing code here
             spriteBatch.Begin();
-            player.Draw(spriteBatch);
-            wall1.Draw(spriteBatch);
+            player.Draw(spriteBatch,playerCamera);
+            wall1.Draw(spriteBatch, playerCamera);
             spriteBatch.End();
 
 

@@ -21,7 +21,7 @@ namespace Platformer
         float m_rotation = 0f;
         float m_rotationSpeed = 250f;
 
-
+        Vector2 m_offset;
 
         Rectangle m_collisionBox;
 
@@ -33,6 +33,21 @@ namespace Platformer
             m_collisionBox.Height = (int)m_widthHeight.Y;
 
             return m_collisionBox;
+        }
+
+        public Vector2 getPosition()
+        {
+            return m_position;
+        }
+
+        public Vector2 getOrigin()
+        {
+            return m_origin;
+        }
+
+        public float getRotation()
+        {
+            return m_rotation;
         }
 
         public Player(GraphicsDevice _graphics, Vector2 _position, int _Width, int _Height, Color _color)
@@ -114,9 +129,9 @@ namespace Platformer
 
         }
 
-        public void Draw(SpriteBatch sb)
+        public void Draw(SpriteBatch sb, Camera _cam)
         {
-            sb.Draw(m_texture, m_position, m_texture.Bounds,  Color.White, MathHelper.ToRadians(m_rotation), m_origin, 1f, SpriteEffects.None, 0);
+            sb.Draw(m_texture, m_position - _cam.getCameraPosition(), m_texture.Bounds,  Color.White, MathHelper.ToRadians(m_rotation), m_origin, 1f, SpriteEffects.None, 0);
         }
     }
 

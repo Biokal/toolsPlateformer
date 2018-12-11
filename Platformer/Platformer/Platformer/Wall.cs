@@ -43,9 +43,9 @@ namespace Platformer
             return false;
         }
 
-        public void Draw(SpriteBatch sb)
+        public void Draw(SpriteBatch sb, Camera _cam)
         {
-            sb.Draw(m_texture, m_position, Color.White);
+            sb.Draw(m_texture, m_position - _cam.getCameraPosition(), Color.White);
         }
 
     }
