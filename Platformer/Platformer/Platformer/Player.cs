@@ -30,8 +30,8 @@ namespace Platformer
         {
             m_collisionBox.X = (int)m_position.X - (int)m_widthHeight.X;
             m_collisionBox.Y = (int)m_position.Y - (int)m_widthHeight.Y;
-            m_collisionBox.Width = (int)m_widthHeight.X;
-            m_collisionBox.Height = (int)m_widthHeight.Y;
+            m_collisionBox.Width = (int)m_widthHeight.X - 1;
+            m_collisionBox.Height = (int)m_widthHeight.Y - 1;
 
             return m_collisionBox;
         }
@@ -40,8 +40,8 @@ namespace Platformer
         {
             m_forwardTrigger.X = (int)getCollisionBox().X + (int)m_widthHeight.X;
             m_forwardTrigger.Y = (int)getCollisionBox().Y;
-            m_forwardTrigger.Width = (int)getCollisionBox().Width;
-            m_forwardTrigger.Height = (int)getCollisionBox().Height;
+            m_forwardTrigger.Width = (int)getCollisionBox().Width - 5;
+            m_forwardTrigger.Height = (int)getCollisionBox().Height - 5;
 
             return m_forwardTrigger;
         }
@@ -97,17 +97,30 @@ namespace Platformer
             }
             m_position += m_vitesse* (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-
-            
+            //Collisions
+            foreach(Wall x in _listWall)
+            {
+                if(x.isColliding(this.getCollisionBox()))
+                {
+                    m_position = m_previousPosition;
+                    
+                    m_vitesse.Y = 0;
+                    //Jump
+                    if (Keyboard.GetState().IsKeyDown(Keys.Z) || Keyboard.GetState().IsKeyDown(Keys.Up))
+                    {
+                        m_vitesse.Y = -350f;
+                    }
+                }
+            }
 
             //GoToRight + Rotation
-            if(Keyboard.GetState().IsKeyDown(Keys.D) || Keyboard.GetState().IsKeyDown(Keys.Right))
+            if (Keyboard.GetState().IsKeyDown(Keys.D) || Keyboard.GetState().IsKeyDown(Keys.Right))
             {
                 colliding = false;
                 //ForwardTrigger Detection
                 foreach (Wall x in _listWall)
                 {
-                    if(x.isColliding(this.getForwardTrigger()))
+                    if (x.isColliding(this.getForwardTrigger()))
                     {
                         colliding = true;
                         break;
@@ -125,7 +138,7 @@ namespace Platformer
             }
             else
             {
-                if(m_rotation>=45)
+                if (m_rotation >= 45)
                 {
                     if (m_rotation < 90)
                     {
@@ -137,7 +150,7 @@ namespace Platformer
                         m_position.X += 32;
                     }
                 }
-                else if(m_rotation<=45)
+                else if (m_rotation <= 45)
                 {
                     if (m_rotation > 0)
                     {
@@ -150,25 +163,6 @@ namespace Platformer
                 }
             }
 
-            //Collisions
-            foreach(Wall x in _listWall)
-            {
-                if(x.isColliding(this.getCollisionBox()))
-                {
-                    m_position = m_previousPosition;
-                    
-                    m_vitesse.Y = 0;
-                    //Jump
-                    if (Keyboard.GetState().IsKeyDown(Keys.Z) || Keyboard.GetState().IsKeyDown(Keys.Up))
-                    {
-                        m_vitesse.Y = -350f;
-                    }
-                }
-            }
-
-            
-
-            
 
         }
 
