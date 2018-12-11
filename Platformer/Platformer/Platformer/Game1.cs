@@ -10,9 +10,12 @@ namespace Platformer
     /// </summary>
     public class Game1 : Game
     {
+
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Player player;
+        SpritePack spritePack;
+
 
         public Game1()
         {
@@ -22,8 +25,7 @@ namespace Platformer
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-
+            spritePack = new SpritePack(GraphicsDevice, Content);
             base.Initialize();
         }
 
