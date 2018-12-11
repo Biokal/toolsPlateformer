@@ -83,6 +83,10 @@ namespace Platformer
 
         public void Update(GameTime gameTime, List<Wall> _listWall)
         {
+            if(_listWall == null)
+            {
+                return;
+            }
             //m_previousPosition pour recaler si jamais il y a collision
             m_previousPosition = m_position;
 
