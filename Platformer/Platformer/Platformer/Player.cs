@@ -13,6 +13,7 @@ namespace Platformer
     {
 
         Texture2D m_texture;
+        Vector2 m_spawnPosition;
         Vector2 m_position;
         Vector2 m_origin = new Vector2(32,32);
         Vector2 m_widthHeight;
@@ -20,6 +21,8 @@ namespace Platformer
         Vector2 m_vitesse = new Vector2(0,0);
         float m_rotation = 0f;
         float m_rotationSpeed = 250f;
+
+        bool m_dead;
 
         Vector2 m_offset;
 
@@ -63,6 +66,9 @@ namespace Platformer
 
         public Player(GraphicsDevice _graphics, Vector2 _position, int _Width, int _Height, Color _color)
         {
+            m_spawnPosition = _position;
+            m_dead = false;
+
             //Création d'une texture par la carte graphique :
             //on définit une texture, sa largeur et sa hauteur
             m_texture = new Texture2D(_graphics, _Width, _Height);
@@ -81,9 +87,15 @@ namespace Platformer
 
         bool colliding = false;
 
-        public void Update(GameTime gameTime, List<Wall> _listWall)
+        public void Update(GameTime gameTime, List<Wall> _listWall, List<Spike> _listSpike)
         {
-            if(_listWall == null)
+            if(m_dead)
+            {
+                m_position = m_spawnPosition;
+                m_dead = false;
+            }
+
+            if(_listWall == null || _listSpike == null)
             {
                 return;
             }
@@ -110,6 +122,15 @@ namespace Platformer
                     {
                         m_vitesse.Y = -350f;
                     }
+                }
+            }
+
+            //Death Collisions
+            foreach(Spike s in _listSpike)
+            {
+                if(s.isColliding(this.getCollisionBox()))
+                {
+                    m_dead = true;
                 }
             }
 
