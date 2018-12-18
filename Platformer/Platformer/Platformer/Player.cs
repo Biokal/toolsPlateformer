@@ -140,14 +140,18 @@ namespace Platformer
             {
                 if (m_rotation >= 45)
                 {
-                    if (m_rotation < 90)
+                    if (m_rotation < 90 && !colliding)
                     {
                         m_rotation += m_rotationSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
                     }
-                    else
+                    else if(m_rotation >= 90 && !colliding)
                     {
                         m_rotation = 0;
                         m_position.X += 32;
+                    }
+                    else
+                    {
+                        m_rotation -= m_rotationSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
                     }
                 }
                 else if (m_rotation <= 45)
