@@ -23,6 +23,7 @@ namespace Platformer
         float m_rotationSpeed = 250f;
 
         bool m_dead;
+        bool m_win;
 
         Vector2 m_offset;
 
@@ -68,6 +69,7 @@ namespace Platformer
         {
             m_spawnPosition = _position;
             m_dead = false;
+            m_win = false;
 
             //Création d'une texture par la carte graphique :
             //on définit une texture, sa largeur et sa hauteur
@@ -87,7 +89,7 @@ namespace Platformer
 
         bool colliding = false;
 
-        public void Update(GameTime gameTime, List<Wall> _listWall, List<Spike> _listSpike)
+        public void Update(GameTime gameTime, List<Wall> _listWall, List<Spike> _listSpike, Goal _goal)
         {
             if(m_dead)
             {
@@ -132,6 +134,12 @@ namespace Platformer
                 {
                     m_dead = true;
                 }
+            }
+
+            //Goal Collision
+            if(_goal.isColliding(this.getCollisionBox()))
+            {
+                m_win = true;
             }
 
             //GoToRight + Rotation

@@ -13,6 +13,7 @@ namespace Platformer
     {
         List<Wall> m_ListWalls;
         List<Spike> m_ListSpikes;
+        Goal m_Goal;
         WallPool m_WallPool;
 
         public Map()
@@ -20,6 +21,11 @@ namespace Platformer
             m_ListWalls = new List<Wall>();
             m_ListSpikes = new List<Spike>();
             m_WallPool = new WallPool();
+        }
+
+        public Goal getGoal()
+        {
+            return m_Goal;
         }
 
         public List<Wall> GetWalls()
@@ -54,6 +60,9 @@ namespace Platformer
                             case "2":
                                 m_ListSpikes.Add(new Spike(new Vector2(i * 32, lineCounter * 32)));
                                 break;
+                            case "3":
+                                m_Goal = new Goal(new Vector2(i * 32, lineCounter * 32));
+                                break;
                         }
                     }
                     lineCounter++;
@@ -71,6 +80,7 @@ namespace Platformer
             {
                 spik.Draw(sb, camera);
             }
+            m_Goal.Draw(sb, camera);
         }
         
     }

@@ -61,7 +61,7 @@ namespace Platformer
 
             // TODO: Add your update logic here
 
-            player.Update(gameTime,map.GetWalls(),map.GetSpikes());
+            player.Update(gameTime,map.GetWalls(),map.GetSpikes(),map.getGoal());
             playerCamera.setCameraPosition(player.getPosition() - player.getOrigin() + new Vector2(player.getRotation()/90*32,0));
 
 
