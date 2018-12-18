@@ -23,7 +23,7 @@ namespace Platformer
         float m_rotationSpeed = 250f;
 
         bool m_dead;
-        bool m_win;
+        public bool m_win;
 
         Vector2 m_offset;
 

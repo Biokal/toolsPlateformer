@@ -11,6 +11,8 @@ namespace Platformer
     public class Game1 : Game
     {
 
+        private SpriteFont font;
+
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
@@ -37,6 +39,7 @@ namespace Platformer
 
         protected override void LoadContent()
         {
+            font = Content.Load<SpriteFont>("Font/winFont");
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             map = new Map();
@@ -76,6 +79,10 @@ namespace Platformer
             spriteBatch.Begin();
             player.Draw(spriteBatch,playerCamera);
             map.DrawMap(spriteBatch, playerCamera);
+            if (player.m_win)
+            {
+                spriteBatch.DrawString(font, "YOU WIIIN AHAH TROP LA YES LIFE", new Vector2(GraphicsDevice.Viewport.Width / 2 - font.MeasureString("YOU WIIIN AHAH TROP LA YES LIFE").X / 2, GraphicsDevice.Viewport.Height / 4), Color.Blue);
+            }
             spriteBatch.End();
 
 
