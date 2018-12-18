@@ -12,17 +12,24 @@ namespace Platformer
     class Map
     {
         List<Wall> m_ListWalls;
+        List<Spike> m_ListSpikes;
         WallPool m_WallPool;
 
         public Map()
         {
             m_ListWalls = new List<Wall>();
+            m_ListSpikes = new List<Spike>();
             m_WallPool = new WallPool();
         }
 
         public List<Wall> GetWalls()
         {
             return m_ListWalls;
+        }
+
+        public List<Spike> GetSpikes()
+        {
+            return m_ListSpikes;
         }
 
         public void LoadMap()
@@ -41,6 +48,9 @@ namespace Platformer
                             case "0":
                                 m_ListWalls.Add(new Wall(new Vector2(i * 32, lineCounter * 32)));
                                 break;
+                            case "2":
+                                m_ListSpikes.Add(new Spike(new Vector2(i * 32, lineCounter * 32)));
+                                break;
                         }
                     }
                     lineCounter++;
@@ -53,6 +63,10 @@ namespace Platformer
             foreach(Wall wall in m_ListWalls)
             {
                 wall.Draw(sb, camera);
+            }
+            foreach(Spike spik in m_ListSpikes)
+            {
+                spik.Draw(sb, camera);
             }
         }
 
