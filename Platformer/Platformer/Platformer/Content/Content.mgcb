@@ -16,6 +16,18 @@
 #begin Map/Map1.csv
 /copy:Map/Map1.csv
 
+#begin Sprite/Flag.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Sprite/Flag.png
+
 #begin Sprite/Spike.png
 /importer:TextureImporter
 /processor:TextureProcessor
