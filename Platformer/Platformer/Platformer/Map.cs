@@ -39,7 +39,10 @@ namespace Platformer
                         switch (elements[i])
                         {
                             case "0":
-                                m_ListWalls.Add(new Wall(new Vector2(i * 32, lineCounter * 32)));
+                                Wall wall = m_WallPool.GetObject();
+                                wall.SetPosition(new Vector2(i * 32, lineCounter * 32));
+
+                                m_ListWalls.Add(wall);
                                 break;
                         }
                     }
@@ -55,6 +58,6 @@ namespace Platformer
                 wall.Draw(sb, camera);
             }
         }
-
+        
     }
 }

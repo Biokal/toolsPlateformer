@@ -37,7 +37,7 @@ namespace Platformer
 
         private Wall AddObject()
         {
-            Walls.Add(new Wall(new Vector2(0,0)));
+            Walls.Add(new Wall(new Vector2(0,0),true,32,32));
             return Walls[Walls.Count - 1];
         }
     }

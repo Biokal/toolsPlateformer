@@ -33,8 +33,14 @@ namespace Platformer
         {
             m_size = new Vector2(_Width, _Height);
             m_position = _position;
+            Used = used;
 
             m_texture = SpritePack.GetSingleton().GetTexture("Wall");
+        }
+
+        public void SetPosition(Vector2 _position)
+        {
+            m_position = _position;
         }
 
         public bool isColliding(Rectangle collider)
